@@ -1,29 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GYM tracker</title>
     <link rel="manifest" href="manifest.json">
-	<link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
 </head>
+
 <body>
     <h1>GYM tracker</h1>
     <p>Welcome to the GYM tracker. Here you can log your workouts and track your progress over time.</p>
-    
+
     <h2>Log a Workout</h2>
     <form>
         <label for="workout-name">Workout Name:</label>
-        <input type="text" id="workout-name" name="workout-name"><br>
+        <select id="workout-name" name="workout-name">
+            <option value="running">Running</option>
+            <option value="swimming">Swimming</option>
+            <option value="cycling">Cycling</option>
+        </select><br>
         <label for="workout-type">Workout Type:</label>
-        <input type="text" id="workout-type" name="workout-type"><br>
+         <select id="workout-type" name="workout-type">
+            <option value="cardio">Cardio</option>
+            <option value="strength">Strength</option>
+            <option value="flexibility">Flexibility</option>
+        </select><br>
         <label for="workout-date">Date:</label>
         <input type="date" id="workout-date" name="workout-date"><br>
         <label for="workout-duration">Duration (minutes):</label>
         <input type="number" id="workout-duration" name="workout-duration"><br>
+        <label for="workout-reps">Reps:</label>
+        <input type="number" id="workout-reps" name="workout-reps"><br>
+        <label for="workout-domain">Workout Domain:</label>
+        <input type="text" id="workout-domain" name="workout-domain"><br>
+        <label for="workout-weight">Weight (kg):</label>
+        <input type="number" id="workout-weight" name="workout-weight" step="0.1"><br>
         <input type="submit" value="Log Workout">
     </form>
-    
+
     <h2>View Workouts</h2>
     <p>Coming soon...</p>
     <button id="install-button" style="display: none;">Instalar</button>
@@ -31,4 +47,5 @@
     <!-- Script principal que registra el SW y maneja la instalación -->
     <script src="app.js"></script>
 </body>
+
 </html>
