@@ -7,6 +7,81 @@
     <title>GYM tracker</title>
     <link rel="manifest" href="manifest.json">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <style>
+        #muscle-groups {
+            width: 200px;
+            padding: 6px 0;
+            border: none;
+            border-bottom: 1px solid #ccc;
+            font-size: 16px;
+            color: #666;
+            outline: none;
+        }
+
+        #muscle-groups:focus {
+            border-bottom-color: #66b3ff;
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            /* Stay in place */
+            z-index: 1;
+            /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%;
+            /* Full width */
+            height: 100%;
+            /* Full height */
+            overflow: auto;
+            /* Enable scroll if needed */
+            background-color: rgb(0, 0, 0);
+            /* Fallback color */
+            background-color: rgba(0, 0, 0, 0.4);
+            /* Black w/ opacity */
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            /* 15% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            /* Could be more or less, depending on screen size */
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+         ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 10px 0;
+        }
+
+        li {
+            cursor: pointer;
+        }
+
+        li.selected {
+            background-color: #66b3ff;
+        }
+    </style>
 </head>
 
 <body>
@@ -15,14 +90,10 @@
 
     <h2>Log a Workout</h2>
     <form>
-        <label for="workout-name">Workout Name:</label>
-        <select id="workout-name" name="workout-name">
-            <option value="running">Running</option>
-            <option value="swimming">Swimming</option>
-            <option value="cycling">Cycling</option>
-        </select><br>
-        <label for="workout-type">Workout Type:</label>
-         <select id="workout-type" name="workout-type">
+        <input type="text" id="muscle-groups" name="muscle-groups" placeholder="Muscle groups"
+            onclick="openModal();"><br>
+        <!-- <label for="workout-type">Workout Type:</label>
+        <select id="workout-type" name="workout-type">
             <option value="cardio">Cardio</option>
             <option value="strength">Strength</option>
             <option value="flexibility">Flexibility</option>
@@ -37,7 +108,7 @@
         <input type="text" id="workout-domain" name="workout-domain"><br>
         <label for="workout-weight">Weight (kg):</label>
         <input type="number" id="workout-weight" name="workout-weight" step="0.1"><br>
-        <input type="submit" value="Log Workout">
+        <input type="submit" value="Log Workout"> -->
     </form>
 
     <h2>View Workouts</h2>
@@ -46,6 +117,73 @@
 
     <!-- Script principal que registra el SW y maneja la instalación -->
     <script src="app.js"></script>
+    <!-- Modal HTML -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Modal Header</h2>
+            <p>Select muscle groups:</p>
+            <ul id="muscle-groups-list">
+                <li>Legs</li>
+                <li>Shoulders</li>
+                <li>Chest</li>
+                <li>Biceps</li>
+                <li>Triceps</li>
+                <li>Abdominals</li>
+                <li>Back</li>
+                <li>Calves</li>
+
+            </ul>
+            <button type="button" onclick="saveMuscleGroups()">Save</button>
+        </div>
+    </div>
+    <script>
+        // Function to open modal
+        function openModal() {
+            document.getElementById("myModal").style.display = "block";
+        }
+
+        // Function to close modal
+        function closeModal() {
+            document.getElementById("myModal").style.display = "none";
+        }
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks the button, open the modal
+        span.onclick = closeModal;
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+            if (event.target == document.getElementById("myModal")) {
+                closeModal();
+            }
+        }
+
+        // Function to save muscle groups
+        function saveMuscleGroups() {
+            var selectedMuscleGroups = document.querySelectorAll("#muscle-groups-list li.selected");
+            var muscleGroupsList = [];
+            for (var i = 0; i < selectedMuscleGroups.length; i++) {
+                muscleGroupsList.push(selectedMuscleGroups[i].textContent);
+            }
+            var muscleGroupsText = muscleGroupsList.join(", ");
+            document.getElementById("muscle-groups").value = muscleGroupsText;
+            closeModal();
+        }
+
+        // Function to add selected class to list item
+        function selectListItem(event) {
+            event.target.classList.toggle("selected");
+        }
+
+        // Add event listeners to list items
+        var muscleGroupsListItems = document.querySelectorAll("#muscle-groups-list li");
+        for (var i = 0; i < muscleGroupsListItems.length; i++) {
+            muscleGroupsListItems[i].addEventListener("click", selectListItem);
+        }
+    </script>
 </body>
 
 </html>
